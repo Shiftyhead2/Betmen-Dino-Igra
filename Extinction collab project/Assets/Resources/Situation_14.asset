@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b94c61f763fe0d842a8f18dda7ec1281, type: 3}
+  m_Name: Situation_14
+  m_EditorClassIdentifier: 
+  SituationText: 'Elevator in Trumpf Tower not working. You need to go down! What
+    you will do! '
+  SituationAnswers:
+  - Relise parrot and see what she will do!
+  - Take 7 xanax, waith 15min and jump with parachute!
+  - Do nothing!
+  - Watch Fox News

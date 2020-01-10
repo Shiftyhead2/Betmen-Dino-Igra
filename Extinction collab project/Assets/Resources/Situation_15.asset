@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b94c61f763fe0d842a8f18dda7ec1281, type: 3}
+  m_Name: Situation_15
+  m_EditorClassIdentifier: 
+  SituationText: 'Putin send you hod-dog, with message "Put-In he he"! What you will
+    do? '
+  SituationAnswers:
+  - 'You will put in '
+  - Send him hod-dog back and ask him "I dont eat god dog fu** off Put-in"
+  - Do nothing!
+  - Watch Fox News

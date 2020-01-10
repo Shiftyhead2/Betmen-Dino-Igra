@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b94c61f763fe0d842a8f18dda7ec1281, type: 3}
+  m_Name: Situation_6
+  m_EditorClassIdentifier: 
+  SituationText: We killed your presidental election rival ,but the public is suspecting
+    us! What we will do?
+  SituationAnswers:
+  - Make a claim that your rival was actually a nazi!
+  - Make a claim that your rival died from a hearthattack cause he was fat!
+  - Do nothing!
+  - Watch fox news
