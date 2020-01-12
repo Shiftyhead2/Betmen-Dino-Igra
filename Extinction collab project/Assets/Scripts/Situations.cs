@@ -8,4 +8,5 @@ public class Situations : ScriptableObject
 {
     public string SituationText;
     public string[] SituationAnswers;
+    public int Seriousness;
 }

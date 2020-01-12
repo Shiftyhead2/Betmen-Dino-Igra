@@ -15,19 +15,28 @@ public class ChangeSprite : MonoBehaviour
 
     private void Update()
     {
-        if(Manager.currentPanicLevel < 20)
+        if(Manager.currentPanicLevel < 250)
         {
-            this.gameObject.GetComponent<Image>().sprite = PanicImages[0];    
-        }else if(Manager.currentPanicLevel < 40)
+            this.gameObject.GetComponent<Image>().sprite = PanicImages[0];
+            Manager.GetComponent<AudioSource>().pitch = 1f;
+        }else if(Manager.currentPanicLevel < 450)
         {
             this.gameObject.GetComponent<Image>().sprite = PanicImages[1];
-        }else if(Manager.currentPanicLevel < 70)
+            Manager.GetComponent<AudioSource>().pitch = 0.9f;
+        }
+        else if(Manager.currentPanicLevel < 550)
         {
             this.gameObject.GetComponent<Image>().sprite = PanicImages[2];
+            Manager.GetComponent<AudioSource>().pitch = 0.7f;
         }
-        else if(Manager.currentPanicLevel < 100)
+        else if(Manager.currentPanicLevel < 750)
         {
             this.gameObject.GetComponent<Image>().sprite = PanicImages[3];
+            Manager.GetComponent<AudioSource>().pitch = 0.5f;
+        }
+        else if(Manager.currentPanicLevel < 1000)
+        {
+            Manager.GetComponent<AudioSource>().pitch = 0.3f;
         }
     }
 

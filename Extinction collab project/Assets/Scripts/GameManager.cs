@@ -6,11 +6,12 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    [Header("Variables")]
     public int currentPanicLevel;
     public float nextSituationTimer;
-    float FoxNewsTime = 2f;
+    float FoxNewsTime = 5f;
     float SituationTimer;
-    int maxPanicLevel = 100;
+    int maxPanicLevel = 1000;
     int PanicIncrease;
     bool AnsweringSituation = false;
     public Situations[] ListOfSituations;
@@ -19,11 +20,12 @@ public class GameManager : MonoBehaviour
     bool WatchingFoxNews = false;
     int WatchedFoxNews;
     int Days = 0;
+    float DaysCountTimer = 0f;
 
     //UI
+    [Header("UI")]
     public Text QuestionText;
     public Button[] AnswerButton;
-    public Button RestartButton;
     public Image PhoneImage;
     public Animator PhoneAnimation;
     public Image FoxNews;
@@ -31,20 +33,24 @@ public class GameManager : MonoBehaviour
     public Animator ForeGroundAnimation;
     public Text DaysText;
 
+    [Header("Audio")]
+    public AudioClip PhoneRing;
+    
+
     private void Start()
     {
         QuestionText.gameObject.SetActive(false);
-        FoxNews.gameObject.SetActive(false);
         for(int i = 0; i < AnswerButton.Length; i++)
         {
             AnswerButton[i].gameObject.SetActive(false);
         }
         SituationTimer = nextSituationTimer;
+        DaysText.text = "Days: " + Days;
     }
 
     private void Update()
     {
-        if(currentPanicLevel >= 100 && GameOver == false)
+        if(currentPanicLevel >= maxPanicLevel && GameOver == false)
         {
             //Game Over
             SceneManager.LoadScene(1);
@@ -54,16 +60,16 @@ public class GameManager : MonoBehaviour
             GameOver = true;
             Background.gameObject.SetActive(false);
             PhoneImage.gameObject.SetActive(false);
+            FoxNews.gameObject.SetActive(false);
             ForeGroundAnimation.SetTrigger("Play");
         }
-
-        
 
         if(SituationTimer <= 0f)
         {
             if(AnsweringSituation == false)
             {
-
+                PhoneImage.gameObject.GetComponent<AudioSource>().clip = PhoneRing;
+                PhoneImage.gameObject.GetComponent<AudioSource>().Play();
                 PhoneAnimation.SetTrigger("OpenPhone");
                 GenerateSituation();
                 AnsweringSituation = true;
@@ -73,8 +79,6 @@ public class GameManager : MonoBehaviour
             
         }
 
-        
-
         if (AnsweringSituation == false && GameOver == false && WatchingFoxNews == false)
         {
             SituationTimer -= Time.deltaTime;
@@ -82,25 +86,31 @@ public class GameManager : MonoBehaviour
 
         if(WatchingFoxNews == true && GameOver == false)
         {
-            FoxNews.gameObject.SetActive(true);
+            FoxNews.gameObject.GetComponent<Animator>().SetBool("Close", false);
             FoxNewsTime -= Time.deltaTime;
+            DaysCountTimer += Time.deltaTime;
+            if(DaysCountTimer >= 2f)
+            {
+                Days++;
+                DaysText.text = "Days: " + Days;
+                if (currentPanicLevel >= 50)
+                {
+                    currentPanicLevel -= 50;
+                }
+                DaysCountTimer = 0f;
+            }
             if(FoxNewsTime <= 0f)
             {
-                FoxNews.gameObject.SetActive(false);
-                FoxNewsTime = 2f;
+                FoxNews.gameObject.GetComponent<Animator>().SetBool("Close", true);
+                FoxNewsTime = 5f;
                 WatchingFoxNews = false;
-
             }
         }
-
-        DaysText.text = "Days: " + Days;
-
-
     }
 
     public void GoodChoice()
     {
-        PanicIncrease = 5;
+        PanicIncrease = 10 * currentSituation.Seriousness;
         currentPanicLevel += PanicIncrease;
         AnsweringSituation = false;
         SituationTimer = nextSituationTimer;
@@ -111,11 +121,13 @@ public class GameManager : MonoBehaviour
         }
         PhoneAnimation.SetBool("Done", true);
         Days++;
+        DaysText.text = "Days: " + Days;
+        
     }
 
     public void BadChoice()
     {
-        PanicIncrease = 10;
+        PanicIncrease = 10 * currentSituation.Seriousness;
         currentPanicLevel += PanicIncrease;
         AnsweringSituation = false;
         SituationTimer = nextSituationTimer;
@@ -126,12 +138,13 @@ public class GameManager : MonoBehaviour
         }
         PhoneAnimation.SetBool("Done", true);
         Days++;
+        DaysText.text = "Days: " + Days;
 
     }
 
     public void NoChoice()
     {
-        PanicIncrease = 30;
+        PanicIncrease = 30* currentSituation.Seriousness;
         currentPanicLevel += PanicIncrease;
         AnsweringSituation = false;
         SituationTimer = nextSituationTimer;
@@ -142,6 +155,7 @@ public class GameManager : MonoBehaviour
         }
         PhoneAnimation.SetBool("Done", true);
         Days++;
+        DaysText.text = "Days: " + Days;
     }
 
     public void WatchFoxNews()
@@ -155,8 +169,8 @@ public class GameManager : MonoBehaviour
         }
         WatchedFoxNews++;
         WatchingFoxNews = true;
+        FoxNews.gameObject.GetComponent<Animator>().SetTrigger("Watching");
         PhoneAnimation.SetBool("Done", true);
-        Days++;
     }
 
 
@@ -172,9 +186,4 @@ public class GameManager : MonoBehaviour
             AnswerButton[i].gameObject.SetActive(true);
         }
     }
-
-    
-
-    
-    
 }
